@@ -5,6 +5,7 @@ from shop.models import Product
 class StaticViewSitemap(Sitemap):
     priority = 0.5
     changefreq = 'weekly'
+    protocol = 'https'
 
     def items(self):
         return [
@@ -24,6 +25,7 @@ class StaticViewSitemap(Sitemap):
 class ProductSitemap(Sitemap):
     priority = 0.8
     changefreq = 'daily'
+    protocol = 'https'
 
     def items(self):
         return Product.objects.filter(is_active=True)
