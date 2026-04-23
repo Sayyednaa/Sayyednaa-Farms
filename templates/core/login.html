@@ -11,6 +11,16 @@
             </div>
             <h1 style="font-size: 1.75rem; margin-bottom: 0.5rem;">Welcome <span class="text-gradient">Back</span></h1>
             <p style="color: var(--text-muted); font-size: 0.9rem;">Access your premium farm portal</p>
+            
+            {% if form.errors %}
+            <div style="margin-top: 1.5rem; padding: 0.75rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2); color: #EF4444; font-size: 0.85rem;">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
 
         <form method="post">

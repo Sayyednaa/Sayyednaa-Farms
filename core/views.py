@@ -79,12 +79,15 @@ class TermsView(TemplateView):
 class ShippingView(TemplateView):
     template_name = 'core/shipping.html'
 
+from django.contrib.auth import login
+
 class StaffLoginView(LoginView):
     template_name = 'core/login.html'
     redirect_authenticated_user = True
     
-    def get_success_url(self):
-        return reverse_lazy('core:dashboard')
+    def form_invalid(self, form):
+        messages.error(self.request, "Invalid username or password. Please try again.")
+        return super().form_invalid(form)
 
 class StaffLogoutView(LogoutView):
     next_page = reverse_lazy('core:home')
@@ -93,12 +96,22 @@ class StaffLogoutView(LogoutView):
 class RegisterView(CreateView):
     form_class = UserCreationForm
     template_name = 'core/register.html'
-    success_url = reverse_lazy('core:login')
+    success_url = reverse_lazy('core:home')
     
     def form_valid(self, form):
         response = super().form_valid(form)
+        # Create profile
         UserProfile.objects.create(user=self.object)
+        # Auto-login after registration
+        login(self.request, self.object)
+        messages.success(self.request, f"Welcome to Sayyednaa Farms, {self.object.username}! Your account has been created successfully.")
         return response
+
+    def form_invalid(self, form):
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(self.request, f"{field.capitalize()}: {error}")
+        return super().form_invalid(form)
 
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'core/profile.html'
