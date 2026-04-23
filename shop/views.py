@@ -31,6 +31,33 @@ class AddToCartView(View):
         messages.success(request, f"{product.name} added to cart.")
         return redirect('shop:cart')
 
+class UpdateCartView(View):
+    def post(self, request, pk):
+        cart = request.session.get('cart', {})
+        product_id = str(pk)
+        action = request.POST.get('action')
+        
+        if product_id in cart:
+            if action == 'increment':
+                cart[product_id] += 1
+            elif action == 'decrement' and cart[product_id] > 1:
+                cart[product_id] -= 1
+        
+        request.session['cart'] = cart
+        return redirect('shop:cart')
+
+class RemoveFromCartView(View):
+    def post(self, request, pk):
+        cart = request.session.get('cart', {})
+        product_id = str(pk)
+        
+        if product_id in cart:
+            del cart[product_id]
+            messages.info(request, "Item removed from cart.")
+            
+        request.session['cart'] = cart
+        return redirect('shop:cart')
+
 class CartView(TemplateView):
     template_name = 'shop/cart.html'
 

@@ -3,52 +3,63 @@
 {% block title %}My Account | Sayyednaa Farms{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div style="display: flex; align-items: center; gap: 2rem; margin-bottom: 3rem;">
-        <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--glass); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
-            {{ user.username|slice:":1"|upper }}
-        </div>
-        <div>
-            <h1 style="font-size: 2rem;">{{ user.username }}</h1>
-            <p style="color: var(--text-gray);">Member since {{ user.date_joined|date:"M Y" }}</p>
+<section class="container animate-up" style="padding-top: 6rem;">
+    <div style="display: flex; flex-direction: column; gap: 2rem; margin-bottom: 4rem;">
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            <div style="width: 80px; height: 80px; border-radius: 20px; background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: var(--primary); font-family: 'Outfit'; font-weight: 800;">
+                {{ user.username|slice:":1"|upper }}
+            </div>
+            <div>
+                <h1 style="font-size: 2rem; margin-bottom: 0.25rem;">{{ user.username }}</h1>
+                <p style="color: var(--text-muted);">Member since {{ user.date_joined|date:"M Y" }}</p>
+            </div>
         </div>
     </div>
 
-    <div class="grid">
+    <div class="grid grid-3">
         <!-- Quick Links -->
-        <a href="{% url 'core:user_orders' %}" class="card" style="text-decoration: none; color: white;">
-            <i class="fas fa-shopping-bag" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
-            <h3>My Orders</h3>
-            <p style="color: var(--text-gray);">Track and view past purchases</p>
+        <a href="{% url 'core:user_orders' %}" class="card glass">
+            <div style="width: 50px; height: 50px; background: var(--primary-glow); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 1.5rem; font-size: 1.25rem;">
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+            <h3 style="margin-bottom: 0.5rem;">My Orders</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Track and view your past farm purchases</p>
         </a>
 
-        <a href="{% url 'shop:cart' %}" class="card" style="text-decoration: none; color: white;">
-            <i class="fas fa-shopping-cart" style="font-size: 2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
-            <h3>My Cart</h3>
-            <p style="color: var(--text-gray);">Review items before checkout</p>
+        <a href="{% url 'shop:cart' %}" class="card glass">
+            <div style="width: 50px; height: 50px; background: rgba(245, 158, 11, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--secondary); margin-bottom: 1.5rem; font-size: 1.25rem;">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h3 style="margin-bottom: 0.5rem;">My Cart</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Review items before confirming your order</p>
         </a>
 
-        <div class="card">
-            <i class="fas fa-map-marker-alt" style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
-            <h3>Saved Addresses</h3>
-            <ul style="list-style: none; margin-top: 1rem;">
+        <div class="card glass">
+            <div style="width: 50px; height: 50px; background: rgba(99, 102, 241, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent); margin-bottom: 1.5rem; font-size: 1.25rem;">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3 style="margin-bottom: 1rem;">Saved Addresses</h3>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
                 {% for addr in user.addresses.all %}
-                <li style="font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--text-gray);">
-                    {{ addr.address_line1 }}, {{ addr.city }} {% if addr.is_default %}<span class="badge badge-success" style="padding: 0.1rem 0.4rem;">Default</span>{% endif %}
+                <li style="font-size: 0.85rem; color: var(--text-secondary); display: flex; justify-content: space-between; align-items: center;">
+                    {{ addr.address_line1 }}, {{ addr.city }}
+                    {% if addr.is_default %}<span class="badge badge-success" style="padding: 0.1rem 0.4rem; font-size: 0.6rem;">Default</span>{% endif %}
                 </li>
                 {% empty %}
-                <li style="color: var(--text-gray);">No addresses saved.</li>
+                <li style="color: var(--text-muted); font-size: 0.85rem;">No addresses saved.</li>
                 {% endfor %}
             </ul>
-            <a href="{% url 'core:address_add' %}" style="display: inline-block; margin-top: 1rem; color: var(--primary); font-size: 0.9rem;">Add New Address</a>
+            <a href="{% url 'core:address_add' %}" style="display: inline-block; margin-top: 1.25rem; color: var(--primary); font-size: 0.85rem; font-weight: 700;">+ Add New Address</a>
         </div>
     </div>
 
-    <div style="margin-top: 3rem; text-align: center;">
+    <div style="margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--border-glass); text-align: center;">
         <form action="{% url 'core:logout' %}" method="post">
             {% csrf_token %}
-            <button type="submit" class="btn" style="background: rgba(231, 76, 60, 0.1); color: #e74c3c;">Logout from Account</button>
+            <button type="submit" class="btn" style="background: rgba(239, 68, 68, 0.1); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.2);">
+                Logout from Account <i class="fas fa-sign-out-alt" style="margin-left: 0.5rem;"></i>
+            </button>
         </form>
     </div>
-</div>
+</section>
 {% endblock %}

@@ -1,41 +1,44 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container admin-layout" style="margin-top: 2rem;">
-    <!-- Horizontal Tab Navigation for Mobile / Sidebar for Desktop -->
-    <aside class="admin-sidebar" style="overflow-x: auto;">
-        <ul style="list-style: none; display: flex; flex-direction: row; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem;">
-            <!-- These will stack to vertical on Desktop via CSS media queries in style.css -->
-            <li><a href="{% url 'core:dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" style="white-space: nowrap; font-size: 0.9rem; padding: 0.8rem 1.2rem;"><i class="fas fa-chart-line"></i> Summary</a></li>
-            <li><a href="{% url 'livestock:index' %}" class="{% if 'livestock' in request.path %}active{% endif %}" style="white-space: nowrap; font-size: 0.9rem; padding: 0.8rem 1.2rem;"><i class="fas fa-paw"></i> Livestock</a></li>
-            <li><a href="{% url 'crops:index' %}" class="{% if 'crops' in request.path %}active{% endif %}" style="white-space: nowrap; font-size: 0.9rem; padding: 0.8rem 1.2rem;"><i class="fas fa-leaf"></i> Crops</a></li>
-            <li><a href="{% url 'inventory:list' %}" class="{% if 'inventory' in request.path %}active{% endif %}" style="white-space: nowrap; font-size: 0.9rem; padding: 0.8rem 1.2rem;"><i class="fas fa-boxes"></i> Inventory</a></li>
-            <li><a href="{% url 'shop:staff_dashboard' %}" class="{% if 'shop/staff' in request.path %}active{% endif %}" style="white-space: nowrap; font-size: 0.9rem; padding: 0.8rem 1.2rem;"><i class="fas fa-shopping-cart"></i> Shop</a></li>
-        </ul>
-    </aside>
+<section class="container" style="padding-top: 6rem;">
+    <div style="display: flex; flex-direction: column; gap: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <h1 class="section-title" style="text-align: left; margin: 0;">Admin <span class="text-gradient">Portal</span></h1>
+            <div class="badge badge-success">Staff Session Active</div>
+        </div>
 
-    <div class="admin-content" style="flex: 1;">
-        {% block admin_content %}{% endblock %}
+        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
+            <!-- Horizontal Navigation for Admin -->
+            <div class="glass" style="padding: 0.5rem; border-radius: 15px; overflow-x: auto; white-space: nowrap; display: flex; gap: 0.5rem;">
+                <a href="{% url 'core:dashboard' %}" class="btn {% if request.resolver_match.url_name == 'dashboard' %}btn-primary{% else %}btn-outline{% endif %}" style="padding: 0.6rem 1.25rem; font-size: 0.85rem;">
+                    <i class="fas fa-chart-line"></i> Summary
+                </a>
+                <a href="{% url 'livestock:index' %}" class="btn {% if 'livestock' in request.path %}btn-primary{% else %}btn-outline{% endif %}" style="padding: 0.6rem 1.25rem; font-size: 0.85rem;">
+                    <i class="fas fa-paw"></i> Livestock
+                </a>
+                <a href="{% url 'crops:index' %}" class="btn {% if 'crops' in request.path %}btn-primary{% else %}btn-outline{% endif %}" style="padding: 0.6rem 1.25rem; font-size: 0.85rem;">
+                    <i class="fas fa-leaf"></i> Crops
+                </a>
+                <a href="{% url 'inventory:list' %}" class="btn {% if 'inventory' in request.path %}btn-primary{% else %}btn-outline{% endif %}" style="padding: 0.6rem 1.25rem; font-size: 0.85rem;">
+                    <i class="fas fa-boxes"></i> Inventory
+                </a>
+                <a href="{% url 'shop:staff_dashboard' %}" class="btn {% if 'shop/staff' in request.path %}btn-primary{% else %}btn-outline{% endif %}" style="padding: 0.6rem 1.25rem; font-size: 0.85rem;">
+                    <i class="fas fa-store"></i> Shop
+                </a>
+            </div>
+
+            <div class="animate-up">
+                {% block admin_content %}{% endblock %}
+            </div>
+        </div>
     </div>
-</div>
+</section>
 
 <style>
-    /* Admin Mobile Sidebar Adjustment */
+    /* Admin Specific Overrides */
     @media (min-width: 1024px) {
-        .admin-sidebar ul {
-            flex-direction: column !important;
-            border-bottom: none !important;
-            padding-bottom: 0 !important;
-            gap: 1rem !important;
-        }
-        .admin-sidebar a {
-            font-size: 1rem !important;
-        }
-    }
-    
-    /* Ensure tables don't break layout */
-    .admin-content .card {
-        padding: 1rem;
+        /* Optional: Sidebar layout for admin could go here */
     }
 </style>
 {% endblock %}

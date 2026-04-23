@@ -1,47 +1,56 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Our Farm Shop | Sayyednaa Farms - Fresh & Organic{% endblock %}
+{% block title %}Our Farm Shop | Sayyednaa Farms{% endblock %}
 
 {% block content %}
-<section class="container animate-fade-in-up" style="padding-top: 6rem;">
-    <div style="text-align: center; margin-bottom: 5rem;">
-        <span class="hero-label">From our Farm</span>
-        <h1 class="font-heading" style="font-size: 3.5rem; margin-bottom: 1.5rem;">Pure <span class="text-gradient">Harvest</span></h1>
-        <p style="color: var(--text-secondary); font-size: 1.25rem; max-width: 600px; margin: 0 auto;">Directly from our fields to your kitchen. Discover the finest selection of organic produce and livestock.</p>
+<section class="container animate-up" style="padding-top: 6rem;">
+    <div class="section-header">
+        <span class="badge badge-success" style="margin-bottom: 1rem;">FROM OUR FARM</span>
+        <h1 class="section-title">Pure <span class="text-gradient">Harvest</span></h1>
+        <p class="section-subtitle">Directly from our fields to your kitchen. Discover the finest selection of organic produce and livestock.</p>
     </div>
 
-    <div class="grid">
+    <!-- Search & Filter Placeholder (Future Feature) -->
+    <div style="margin-bottom: 3rem; display: flex; justify-content: center;">
+        <div class="glass" style="padding: 0.5rem; border-radius: 15px; width: 100%; max-width: 500px; display: flex; gap: 0.5rem;">
+            <input type="text" placeholder="Search products..." style="border: none; background: transparent; padding: 0.5rem 1rem;">
+            <button class="btn btn-primary" style="padding: 0.5rem 1.5rem;"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+
+    <div class="grid grid-3">
         {% for product in products %}
         <div class="card">
-            <div class="card-img-wrapper">
+            <div class="card-img-container">
                 {% if product.image %}
                 <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img">
                 {% else %}
-                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--bg-obsidian);">
-                    <i class="fas fa-shopping-basket" style="font-size: 4rem; color: var(--border-glass);"></i>
+                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #1a1a1a;">
+                    <i class="fas fa-shopping-basket" style="font-size: 3rem; color: var(--border-glass);"></i>
                 </div>
                 {% endif %}
-                <span class="card-tag">{{ product.category.name|default:"Organic" }}</span>
+                <span class="badge badge-success" style="position: absolute; top: 1rem; right: 1rem;">{{ product.category.name|default:"Organic" }}</span>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                <h3 class="font-heading" style="font-size: 1.5rem;">{{ product.name }}</h3>
-                <p style="color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.6; margin-bottom: 1.5rem;">{{ product.description|truncatewords:15 }}</p>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <h3 style="font-size: 1.25rem;">{{ product.name }}</h3>
+                <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.5; height: 3rem; overflow: hidden;">{{ product.description }}</p>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-glass);">
                     <div>
-                        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Price</span>
-                        <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">₹{{ product.price }}</span>
+                        <span style="display: block; font-size: 0.7rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase;">Price</span>
+                        <span style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">₹{{ product.price }}</span>
                     </div>
-                    <a href="{% url 'shop:product_detail' product.pk %}" class="btn btn-primary" style="padding: 0.75rem 1.25rem;">
-                        Details <i class="fas fa-arrow-right" style="margin-left: 0.5rem; font-size: 0.8rem;"></i>
+                    <a href="{% url 'shop:product_detail' product.pk %}" class="btn btn-primary" style="padding: 0.6rem 1rem; font-size: 0.8rem;">
+                        View <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
         </div>
         {% empty %}
-        <div class="card glass" style="grid-column: 1 / -1; text-align: center; padding: 6rem;">
-            <i class="fas fa-seedling" style="font-size: 4rem; color: var(--text-muted); margin-bottom: 1.5rem; opacity: 0.3;"></i>
-            <h3 class="font-heading" style="font-size: 1.5rem; margin-bottom: 0.5rem;">The fields are resting</h3>
+        <div class="card glass" style="grid-column: 1 / -1; text-align: center; padding: 5rem 2rem;">
+            <i class="fas fa-seedling" style="font-size: 4rem; color: var(--text-muted); margin-bottom: 2rem; opacity: 0.3;"></i>
+            <h3>The fields are resting</h3>
             <p style="color: var(--text-muted);">No products are available at the moment. Please check back later for the next harvest.</p>
         </div>
         {% endfor %}

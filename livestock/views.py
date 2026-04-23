@@ -11,7 +11,7 @@ class LivestockIndexView(LoginRequiredMixin, ListView):
 
 class LivestockCreateView(LoginRequiredMixin, CreateView):
     model = Livestock
-    fields = ['breed', 'identifier', 'date_of_birth', 'status', 'weight', 'notes', 'image']
+    fields = ['breed', 'identifier', 'date_of_birth', 'status', 'weight', 'health_notes', 'image']
     template_name = 'staff/form.html'
     success_url = reverse_lazy('livestock:index')
     login_url = 'core:login'
@@ -23,7 +23,7 @@ class LivestockCreateView(LoginRequiredMixin, CreateView):
 
 class LivestockUpdateView(LoginRequiredMixin, UpdateView):
     model = Livestock
-    fields = ['breed', 'identifier', 'date_of_birth', 'status', 'weight', 'notes', 'image']
+    fields = ['breed', 'identifier', 'date_of_birth', 'status', 'weight', 'health_notes', 'image']
     template_name = 'staff/form.html'
     success_url = reverse_lazy('livestock:index')
     login_url = 'core:login'

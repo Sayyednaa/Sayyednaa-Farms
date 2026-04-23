@@ -3,48 +3,54 @@
 {% block title %}{{ title|default:"Manage" }} | Sayyednaa Farms{% endblock %}
 
 {% block admin_content %}
-<section class="section" style="padding-top: 2rem;">
-    <div style="max-width: 700px; margin: 0 auto;">
-        <h1 style="margin-bottom: 2rem;">{{ title|default:"Management Form" }}</h1>
-        
-        <div class="card" style="padding: 2.5rem;">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
+<div class="animate-up" style="max-width: 800px; margin: 0 auto;">
+    <div style="margin-bottom: 2rem;">
+        <a href="javascript:history.back()" style="color: var(--text-muted); font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+            <i class="fas fa-arrow-left"></i> Go Back
+        </a>
+        <h2 style="font-size: 2rem;">{{ title|default:"Management Form" }}</h2>
+    </div>
+
+    <div class="card glass" style="padding: 2.5rem;">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
                 {% for field in form %}
-                <div style="margin-bottom: 1.5rem;">
-                    <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 600;">{{ field.label }}</label>
-                    {{ field.errors }}
-                    <div class="form-control-wrapper">
-                        {{ field }}
-                    </div>
+                <div class="form-group" style="margin: 0;">
+                    <label class="label">{{ field.label }}</label>
+                    {% if field.errors %}
+                        <div style="color: #EF4444; font-size: 0.75rem; margin-bottom: 0.4rem;">
+                            {{ field.errors|striptags }}
+                        </div>
+                    {% endif %}
+                    {{ field }}
+                    {% if field.help_text %}
+                        <p style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.4rem;">{{ field.help_text|safe }}</p>
+                    {% endif %}
                 </div>
                 {% endfor %}
-                <div style="margin-top: 2rem; border-top: 1px solid var(--glass-border); padding-top: 2rem;">
-                    <button type="submit" class="btn btn-primary" style="margin-top: 0; padding: 0.8rem 2.5rem;">Save Changes</button>
-                    <a href="javascript:history.back()" style="margin-left: 1rem; color: var(--text-muted); text-decoration: none;">Cancel</a>
-                </div>
-            </form>
-        </div>
+            </div>
+
+            <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border-glass); display: flex; gap: 1rem;">
+                <button type="submit" class="btn btn-primary" style="padding: 0.8rem 2.5rem;">Save Changes <i class="fas fa-save"></i></button>
+                <a href="javascript:history.back()" class="btn btn-outline">Cancel</a>
+            </div>
+        </form>
     </div>
-</section>
+</div>
 
 <style>
-    .form-control-wrapper input, 
-    .form-control-wrapper select, 
-    .form-control-wrapper textarea {
-        width: 100%;
-        padding: 0.8rem;
-        border-radius: 8px;
-        border: 1px solid var(--glass-border);
-        background: var(--bg-card);
-        color: white;
-        font-family: inherit;
+    /* Fix for Django default form widgets in dark mode */
+    input[type="checkbox"] {
+        width: auto;
+        margin-right: 0.5rem;
     }
-    .form-control-wrapper input[type="file"] {
+    input[type="file"] {
         padding: 0.5rem;
+        font-size: 0.8rem;
     }
-    .form-control-wrapper select option {
-        background: #222;
+    select option {
+        background: #1a1a1a;
         color: white;
     }
 </style>

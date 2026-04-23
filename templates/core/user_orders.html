@@ -3,41 +3,58 @@
 {% block title %}My Orders | Sayyednaa Farms{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1 style="margin-bottom: 2rem;">Order History</h1>
+<section class="container animate-up" style="padding-top: 6rem;">
+    <h1 class="section-title" style="text-align: left; margin-bottom: 2rem;">Order <span class="text-gradient">History</span></h1>
 
-    {% for order in orders %}
-    <div class="card" style="margin-bottom: 1.5rem;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-            <div>
-                <h3 style="margin-bottom: 0.3rem;">Order #{{ order.id }}</h3>
-                <p style="color: var(--text-gray); font-size: 0.8rem;">{{ order.created_at|date:"d M Y" }}</p>
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        {% for order in orders %}
+        <div class="card glass" style="padding: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h3 style="margin-bottom: 0.25rem;">Order #{{ order.id }}</h3>
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">Placed on {{ order.created_at|date:"d M Y, h:i A" }}</p>
+                </div>
+                <div class="badge {% if order.status == 'Delivered' %}badge-success{% else %}badge-warning{% endif %}">
+                    {{ order.status }}
+                </div>
             </div>
-            <div class="badge {% if order.status == 'Delivered' %}badge-success{% else %}badge-warning{% endif %}">
-                {{ order.status }}
+
+            <div style="border-top: 1px solid var(--border-glass); padding-top: 1.25rem; margin-bottom: 1.5rem;">
+                <h4 style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem;">Items</h4>
+                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    {% for item in order.items.all %}
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <span style="color: var(--primary); font-weight: 700;">{{ item.quantity }}x</span>
+                            <span style="font-size: 0.95rem;">{{ item.product.name }}</span>
+                        </div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">₹{{ item.price_at_purchase }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid var(--border-glass); padding-top: 1.25rem;">
+                <div>
+                    {% if order.tracking_number %}
+                    <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">TRACKING NUMBER</span>
+                    <span style="color: var(--primary); font-weight: 700; font-family: monospace;">{{ order.tracking_number }}</span>
+                    {% endif %}
+                </div>
+                <div style="text-align: right;">
+                    <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">TOTAL AMOUNT</span>
+                    <span style="font-size: 1.5rem; font-weight: 900; color: var(--primary);">₹{{ order.total_amount }}</span>
+                </div>
             </div>
         </div>
-
-        <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
-            {% for item in order.items.all %}
-            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
-                <span style="color: var(--text-gray);">{{ item.quantity }}x {{ item.product.name }}</span>
-                <span>₹{{ item.price_at_purchase }}</span>
-            </div>
-            {% endfor %}
+        {% empty %}
+        <div class="card glass" style="text-align: center; padding: 6rem 2rem;">
+            <i class="fas fa-box-open" style="font-size: 5rem; color: var(--border-glass); margin-bottom: 2rem;"></i>
+            <h2>No orders found</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">You haven't placed any orders yet.</p>
+            <a href="{% url 'shop:product_list' %}" class="btn btn-primary">Start Shopping</a>
         </div>
-
-        <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem;">
-            <span style="font-size: 0.75rem; color: var(--primary);">{{ order.tracking_number|default:"" }}</span>
-            <span style="font-size: 1.4rem; font-weight: 900; color: var(--secondary);">₹{{ order.total_amount }}</span>
-        </div>
+        {% endfor %}
     </div>
-    {% empty %}
-    <div style="text-align: center; padding: 5rem 0;">
-        <i class="fas fa-box-open" style="font-size: 4rem; color: var(--border); margin-bottom: 2rem;"></i>
-        <h2>No orders found</h2>
-        <a href="{% url 'shop:product_list' %}" class="btn btn-primary" style="margin-top: 2rem;">Go to Shop</a>
-    </div>
-    {% endfor %}
-</div>
+</section>
 {% endblock %}

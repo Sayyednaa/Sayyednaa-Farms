@@ -5,132 +5,166 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero animate-fade-in-up">
-    <div class="hero-bg"></div>
-    <div class="container">
-        <div class="hero-content">
-            <span class="hero-label">Established 2020</span>
-            <h1 class="font-heading">Pioneering <br><span class="text-gradient">Organic Excellence</span></h1>
-            <p>Experience the purest essence of nature. Sayyednaa Farms specializes in sustainable aquaculture, premium livestock, and high-yield organic horticulture.</p>
-            <div style="display: flex; gap: 1.25rem; flex-wrap: wrap;">
+<section class="hero-v2"
+    style="background-image: url('{% static 'img/hero.png' %}'); background-size: cover; background-position: center; opacity: 0.8;">
+    <div class="hero-gradient" style="background: linear-gradient(rgba(5,5,5,0.8), rgba(5,5,5,0.4));"></div>
+    <div class="container animate-up">
+        <div style="max-width: 700px;">
+            <span class="badge badge-success" style="margin-bottom: 1.5rem;">ESTABLISHED 2020</span>
+            <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.1; margin-bottom: 1.5rem;">
+                Pioneering <br><span class="text-gradient">Organic Excellence</span>
+            </h1>
+            <p style="font-size: 1.125rem; color: var(--text-secondary); margin-bottom: 2.5rem; max-width: 600px;">
+                Experience the purest essence of nature. <strong
+                    style="color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em;">SAYYEDNAA
+                    FARMS</strong> specializes in sustainable aquaculture, premium livestock, and high-yield organic
+                horticulture.
+            </p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                 <a href="{% url 'shop:product_list' %}" class="btn btn-primary">
-                    Explore Shop <i class="fas fa-shopping-bag" style="margin-left: 0.5rem;"></i>
+                    Explore Shop <i class="fas fa-shopping-bag"></i>
                 </a>
                 <a href="{% url 'core:gallery' %}" class="btn btn-outline">
-                    View Gallery <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
+                    View Gallery <i class="fas fa-images"></i>
                 </a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Specialties Section -->
+<!-- Specialties -->
 <section class="container">
-    <div style="margin-bottom: 4rem; text-align: center;">
+    <div class="section-header">
         <h2 class="section-title">Our Farm Specialties</h2>
-        <p class="section-desc" style="margin: 0 auto 3rem;">We combine traditional wisdom with modern sustainable practices to bring you the highest quality produce.</p>
+        <p class="section-subtitle">We combine traditional wisdom with modern sustainable practices to bring you the
+            highest quality produce.</p>
     </div>
 
-    <div class="grid">
+    <div class="grid grid-3">
         <!-- Fisheries -->
         <div class="card">
-            <div class="card-img-wrapper">
-                <div style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), transparent);">
-                    <i class="fas fa-fish" style="font-size: 4rem; color: var(--primary);"></i>
+            <div class="card-img-container"
+                style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), transparent);">
+                <div style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-fish" style="font-size: 4rem; color: var(--primary); opacity: 0.8;"></i>
                 </div>
-                <span class="card-tag">Sustainable</span>
+                <span class="badge badge-success" style="position: absolute; top: 1rem; right: 1rem;">Sustainable</span>
             </div>
-            <h3 class="font-heading" style="margin-bottom: 0.75rem;">Premium Fisheries</h3>
-            <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 1.5rem;">Freshwater Tilapia and Rohu raised in scientifically managed, oxygenated tanks with curated organic nutrition.</p>
-            <a href="{% url 'shop:product_list' %}?category=fisheries" style="color: var(--primary); font-weight: 700; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.5rem;">
-                LEARN MORE <i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i>
+            <h3 style="margin-bottom: 0.75rem;">Premium Fisheries</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 1.5rem;">Freshwater Tilapia and
+                Rohu raised in scientifically managed, oxygenated tanks with curated organic nutrition.</p>
+            <a href="{% url 'shop:product_list' %}?category=fisheries"
+                style="color: var(--primary); font-weight: 700; font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem;">
+                LEARN MORE <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
             </a>
         </div>
 
         <!-- Poultry -->
         <div class="card">
-            <div class="card-img-wrapper">
-                <div style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), transparent);">
-                    <i class="fas fa-egg" style="font-size: 4rem; color: var(--secondary);"></i>
+            <div class="card-img-container"
+                style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), transparent);">
+                <div style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-egg" style="font-size: 4rem; color: var(--secondary); opacity: 0.8;"></i>
                 </div>
-                <span class="card-tag">Free Range</span>
+                <span class="badge badge-warning" style="position: absolute; top: 1rem; right: 1rem;">Free Range</span>
             </div>
-            <h3 class="font-heading" style="margin-bottom: 0.75rem;">Poultry & Ducks</h3>
-            <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 1.5rem;">Healthy, free-range birds producing premium organic eggs and tender meat for a health-conscious lifestyle.</p>
-            <a href="{% url 'shop:product_list' %}?category=poultry" style="color: var(--primary); font-weight: 700; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.5rem;">
-                LEARN MORE <i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i>
+            <h3 style="margin-bottom: 0.75rem;">Poultry & Ducks</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 1.5rem;">Healthy, free-range
+                birds producing premium organic eggs and tender meat for a health-conscious lifestyle.</p>
+            <a href="{% url 'shop:product_list' %}?category=poultry"
+                style="color: var(--primary); font-weight: 700; font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem;">
+                LEARN MORE <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
             </a>
         </div>
 
         <!-- Horticulture -->
         <div class="card">
-            <div class="card-img-wrapper">
-                <div style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), transparent);">
-                    <i class="fas fa-lemon" style="font-size: 4rem; color: var(--secondary);"></i>
+            <div class="card-img-container"
+                style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), transparent);">
+                <div style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-lemon" style="font-size: 4rem; color: var(--accent); opacity: 0.8;"></i>
                 </div>
-                <span class="card-tag">Naturally Ripened</span>
+                <span class="badge badge-success" style="position: absolute; top: 1rem; right: 1rem;">Organic</span>
             </div>
-            <h3 class="font-heading" style="margin-bottom: 0.75rem;">Fruit Orchards</h3>
-            <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 1.5rem;">Organic Sindhri Mangoes and Seedless Lemons, grown in mineral-rich soil and ripened under the golden sun.</p>
-            <a href="{% url 'shop:product_list' %}?category=horticulture" style="color: var(--primary); font-weight: 700; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.5rem;">
-                LEARN MORE <i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i>
+            <h3 style="margin-bottom: 0.75rem;">Fruit Orchards</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 1.5rem;">Organic Sindhri
+                Mangoes and Seedless Lemons, grown in mineral-rich soil and ripened under the golden sun.</p>
+            <a href="{% url 'shop:product_list' %}?category=horticulture"
+                style="color: var(--primary); font-weight: 700; font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem;">
+                LEARN MORE <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
             </a>
         </div>
     </div>
 </section>
 
-<!-- Stats Section -->
-<section style="background: rgba(18, 18, 18, 0.5); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
-    <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; text-align: center;">
-        <div>
-            <h2 class="text-gradient" style="font-size: 3rem; margin-bottom: 0.5rem;">100%</h2>
-            <p style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem; font-weight: 800;">Organic Certified</p>
-        </div>
-        <div>
-            <h2 class="text-gradient" style="font-size: 3rem; margin-bottom: 0.5rem;">25+</h2>
-            <p style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem; font-weight: 800;">Acres of Green</p>
-        </div>
-        <div>
-            <h2 class="text-gradient" style="font-size: 3rem; margin-bottom: 0.5rem;">1200+</h2>
-            <p style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem; font-weight: 800;">Happy Customers</p>
-        </div>
-        <div>
-            <h2 class="text-gradient" style="font-size: 3rem; margin-bottom: 0.5rem;">Fresh</h2>
-            <p style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem; font-weight: 800;">Daily Harvest</p>
+<!-- Stats -->
+<section style="background: #0a0a0a; border-y: 1px solid var(--border-glass);">
+    <div class="container">
+        <div class="grid grid-4" style="text-align: center;">
+            <div class="animate-up">
+                <h2 class="text-gradient" style="font-size: 3rem; margin-bottom: 0.25rem;">100%</h2>
+                <p
+                    style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.7rem; font-weight: 800;">
+                    Organic Certified</p>
+            </div>
+            <div class="animate-up" style="animation-delay: 0.1s;">
+                <h2 class="text-gradient" style="font-size: 3rem; margin-bottom: 0.25rem;">25+</h2>
+                <p
+                    style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.7rem; font-weight: 800;">
+                    Acres of Green</p>
+            </div>
+            <div class="animate-up" style="animation-delay: 0.2s;">
+                <h2 class="text-gradient" style="font-size: 3rem; margin-bottom: 0.25rem;">1200+</h2>
+                <p
+                    style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.7rem; font-weight: 800;">
+                    Happy Customers</p>
+            </div>
+            <div class="animate-up" style="animation-delay: 0.3s;">
+                <h2 class="text-gradient" style="font-size: 3rem; margin-bottom: 0.25rem;">Fresh</h2>
+                <p
+                    style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.7rem; font-weight: 800;">
+                    Daily Harvest</p>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Visit Us Section -->
-<section class="container" id="visit">
-    <div class="card glass" style="padding: 0; display: grid; grid-template-columns: 1fr; gap: 0;">
-        <div style="height: 400px; width: 100%; border-bottom: 1px solid var(--border-glass);">
-             <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14200.751213454483!2d82.8890741!3d27.295149!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3990998a44b1c201%3A0x4d5a9d8c7c9c0d5c!2sSAYYEDNAA%20FARMS!5e0!3m2!1sen!2sin!4v1713856800000!5m2!1sen!2sin" 
-                width="100%" height="100%" style="border:0; filter: grayscale(1) invert(0.9) contrast(1.2);" allowfullscreen="" loading="lazy"></iframe>
+<!-- Map Section -->
+<section class="container">
+    <div class="card glass" style="padding: 0; display: flex; flex-direction: column;">
+        <div style="height: 400px; width: 100%;">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14200.751213454483!2d82.8890741!3d27.295149!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3990998a44b1c201%3A0x4d5a9d8c7c9c0d5c!2sSAYYEDNAA%20FARMS!5e0!3m2!1sen!2sin!4v1713856800000!5m2!1sen!2sin"
+                width="100%" height="100%" style="border:0; filter: grayscale(1) invert(0.9) contrast(1.2);"
+                allowfullscreen="" loading="lazy"></iframe>
         </div>
-        <div style="padding: 3rem;">
-            <div style="max-width: 600px;">
-                <h2 class="section-title">Visit the Farm</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 2.5rem;">Experience sustainable farming first-hand. Our doors are open for educational tours and direct-from-farm shopping.</p>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
-                    <div>
-                        <h4 class="font-heading" style="color: var(--primary); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.75rem;">Contact</h4>
-                        <p style="font-size: 0.9375rem; margin-bottom: 0.5rem;"><i class="fas fa-phone-alt" style="margin-right: 0.75rem; opacity: 0.6;"></i> +91 9140417935</p>
-                        <p style="font-size: 0.9375rem;"><i class="fas fa-envelope" style="margin-right: 0.75rem; opacity: 0.6;"></i> sayyednaafarms@gmail.com</p>
-                    </div>
-                    <div>
-                        <h4 class="font-heading" style="color: var(--primary); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.75rem;">Hours</h4>
-                        <p style="font-size: 0.9375rem; margin-bottom: 0.5rem;">Mon - Sat: 8 AM - 6 PM</p>
-                        <p style="font-size: 0.9375rem;">Sun: 10 AM - 4 PM</p>
-                    </div>
+        <div style="padding: 2.5rem;">
+            <h2 class="section-title" style="text-align: left; margin-bottom: 1.5rem;">Visit the Farm</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Experience sustainable farming first-hand. Our
+                doors are open for educational tours and direct-from-farm shopping.</p>
+
+            <div class="grid grid-2" style="margin-bottom: 2.5rem;">
+                <div>
+                    <h4
+                        style="color: var(--primary); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.75rem;">
+                        Contact</h4>
+                    <p style="font-size: 0.9375rem; margin-bottom: 0.5rem;"><i class="fas fa-phone-alt"
+                            style="margin-right: 0.75rem; color: var(--primary);"></i> +91 9140417935</p>
+                    <p style="font-size: 0.9375rem;"><i class="fas fa-envelope"
+                            style="margin-right: 0.75rem; color: var(--primary);"></i> sayyednaafarms@gmail.com</p>
                 </div>
-                
-                <a href="https://maps.app.goo.gl/jqyq1B3JhNQb4GXXA" target="_blank" class="btn btn-primary">
-                    Get Directions <i class="fas fa-directions" style="margin-left: 0.5rem;"></i>
-                </a>
+                <div>
+                    <h4
+                        style="color: var(--primary); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.75rem;">
+                        Hours</h4>
+                    <p style="font-size: 0.9375rem; margin-bottom: 0.5rem;">Mon - Sat: 8 AM - 6 PM</p>
+                    <p style="font-size: 0.9375rem;">Sun: 10 AM - 4 PM</p>
+                </div>
             </div>
+
+            <a href="https://maps.app.goo.gl/jqyq1B3JhNQb4GXXA" target="_blank" class="btn btn-primary">
+                Get Directions <i class="fas fa-directions"></i>
+            </a>
         </div>
     </div>
 </section>

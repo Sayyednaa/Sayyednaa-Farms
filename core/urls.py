@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import (
     HomeView, GalleryView, AboutView, DashboardView, StaffLoginView, StaffLogoutView,
-    RegisterView, ProfileView, UserOrdersView, AddressCreateView
+    RegisterView, ProfileView, UserOrdersView, AddressCreateView,
+    ContactView, PrivacyView, TermsView, ShippingView
 )
 
 app_name = 'core'
@@ -17,4 +18,8 @@ urlpatterns = [
     path('profile/', ProfileView.as_view(), name='profile'),
     path('profile/orders/', UserOrdersView.as_view(), name='user_orders'),
     path('profile/address/add/', AddressCreateView.as_view(), name='address_add'),
+    path('contact/', ContactView.as_view(), name='contact'),
+    path('privacy/', PrivacyView.as_view(), name='privacy'),
+    path('terms/', TermsView.as_view(), name='terms'),
+    path('shipping/', ShippingView.as_view(), name='shipping'),
 ]

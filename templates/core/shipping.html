@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Collection Information | Sayyednaa Farms{% endblock %}
+
+{% block content %}
+<section class="container animate-up" style="padding-top: 6rem; max-width: 800px;">
+    <h1 class="section-title" style="text-align: left;">Farmhouse <span class="text-gradient">Collection Only</span></h1>
+    
+    <div class="card glass" style="padding: 2.5rem; margin-bottom: 3rem; border-left: 4px solid var(--primary);">
+        <h3 style="margin-bottom: 1rem;"><i class="fas fa-info-circle"></i> Important Notice</h3>
+        <p style="color: var(--text-primary); font-size: 1.1rem; line-height: 1.6;">
+            To ensure the absolute freshness and quality of our organic produce and livestock, <strong>we do not offer shipping services</strong>. 
+            All items must be collected directly from Sayyednaa Farms.
+        </p>
+    </div>
+
+    <div style="color: var(--text-secondary); line-height: 1.8;">
+        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">1. Priority for Online Bookings</h3>
+        <p style="margin-bottom: 1.5rem;">
+            Customers who book their produce or livestock online will be given <strong>first priority</strong>. 
+            Due to limited daily harvest and high demand, we recommend booking in advance to ensure availability upon your arrival.
+        </p>
+        
+        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">2. Collection Process</h3>
+        <ul style="margin-bottom: 1.5rem; padding-left: 1.5rem;">
+            <li>Place your order through our Farm Shop.</li>
+            <li>You will receive a confirmation message with your Order ID.</li>
+            <li>Visit the farmhouse during our operating hours (Mon-Sat: 8 AM - 6 PM).</li>
+            <li>Present your Order ID at the collection counter.</li>
+        </ul>
+        
+        <h3 style="color: var(--text-primary); margin: 2rem 0 1rem;">3. Why Collection Only?</h3>
+        <p style="margin-bottom: 1.5rem;">
+            By eliminating long-distance shipping, we reduce our carbon footprint and guarantee that your food hasn't spent days in a delivery truck. 
+            You get it straight from the source, exactly how nature intended.
+        </p>
+    </div>
+
+    <div style="margin-top: 4rem; text-align: center;">
+        <a href="https://maps.app.goo.gl/jqyq1B3JhNQb4GXXA" target="_blank" class="btn btn-primary">
+            View Farm Location <i class="fas fa-map-marked-alt"></i>
+        </a>
+    </div>
+</section>
+{% endblock %}

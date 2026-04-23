@@ -20,6 +20,18 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'core/dashboard.html'
     login_url = 'core:login'
 
+class ContactView(TemplateView):
+    template_name = 'core/contact.html'
+
+class PrivacyView(TemplateView):
+    template_name = 'core/privacy.html'
+
+class TermsView(TemplateView):
+    template_name = 'core/terms.html'
+
+class ShippingView(TemplateView):
+    template_name = 'core/shipping.html'
+
 class StaffLoginView(LoginView):
     template_name = 'core/login.html'
     redirect_authenticated_user = True
@@ -41,13 +53,9 @@ class RegisterView(CreateView):
         UserProfile.objects.create(user=self.object)
         return response
 
-class ProfileView(LoginRequiredMixin, DetailView):
-    model = UserProfile
+class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'core/profile.html'
-    context_object_name = 'profile'
-
-    def get_object(self):
-        return self.request.user.profile
+    login_url = 'core:login'
 
 class UserOrdersView(LoginRequiredMixin, ListView):
     model = Order

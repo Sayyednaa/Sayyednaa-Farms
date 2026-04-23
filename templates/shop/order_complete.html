@@ -1,16 +1,22 @@
 {% extends 'base.html' %}
 
-{% block title %}Order Complete | Sayyednaa Farms Shop{% endblock %}
+{% block title %}Order Confirmed | Sayyednaa Farms{% endblock %}
 
 {% block content %}
-<section class="section" style="text-align: center; height: 70vh; display: flex; flex-direction: column; justify-content: center;">
-    <div class="fade-in">
-        <i class="fas fa-check-circle" style="font-size: 6rem; color: #4caf50; margin-bottom: 2rem;"></i>
-        <h1 style="font-size: 3.5rem; margin-bottom: 1rem;">Thank You for Your Order!</h1>
-        <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto;">Your order #{{ order.id }} has been received and is being processed. We will contact you shortly for delivery details.</p>
+<section class="container animate-up" style="min-height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center;">
+    <div class="card glass" style="max-width: 600px; padding: 4rem 2rem;">
+        <div style="width: 100px; height: 100px; background: var(--primary-glow); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; color: var(--primary); font-size: 3rem;">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Order <span class="text-gradient">Placed!</span></h1>
+        <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2.5rem; line-height: 1.6;">
+            Thank you for your order! Your order <strong>#{{ order.id }}</strong> has been received and is being processed. 
+            We will contact you shortly for delivery details.
+        </p>
         
-        <div style="margin-top: 3rem;">
-            <a href="{% url 'shop:product_list' %}" class="btn btn-primary" style="margin-top: 0;">Continue Shopping</a>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <a href="{% url 'core:user_orders' %}" class="btn btn-primary">Track Your Order</a>
+            <a href="{% url 'shop:product_list' %}" class="btn btn-outline">Continue Shopping</a>
         </div>
     </div>
 </section>

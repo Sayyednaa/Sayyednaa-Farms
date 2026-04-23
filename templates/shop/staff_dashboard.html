@@ -1,51 +1,61 @@
 {% extends 'base_admin.html' %}
 
-{% block title %}Shop Stock | Sayyednaa Farms{% endblock %}
+{% block title %}Shop Management | Sayyednaa Farms{% endblock %}
 
 {% block admin_content %}
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-    <h1>Shop Inventory</h1>
-    <a href="{% url 'shop:product_add' %}" class="btn btn-primary" style="margin-top: 0; padding: 0.8rem 1.2rem; font-size: 0.9rem;">+ Add</a>
-</div>
+<div class="animate-up">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <h2 style="font-size: 1.75rem;">Shop Inventory</h2>
+        <a href="{% url 'shop:product_add' %}" class="btn btn-primary" style="padding: 0.6rem 1.25rem;">+ Add New Product</a>
+    </div>
 
-<div class="table-container card" style="padding: 0;">
-    <table>
-        <thead>
-            <tr>
-                <th style="padding: 1rem;">Product</th>
-                <th style="padding: 1rem;">Price</th>
-                <th style="padding: 1rem;">Stock</th>
-                <th style="padding: 1rem;">Status</th>
-                <th style="padding: 1rem;">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for product in products %}
-            <tr>
-                <td style="padding: 1rem; display: flex; align-items: center; gap: 0.8rem;">
-                    <div style="width: 40px; height: 40px; border-radius: 6px; background: var(--glass); overflow: hidden;">
-                        {% if product.image %}
-                        <img src="{{ product.image.url }}" style="width: 100%; height: 100%; object-fit: cover;">
-                        {% endif %}
-                    </div>
-                    <span style="font-weight: 600;">{{ product.name }}</span>
-                </td>
-                <td style="padding: 1rem;">₹{{ product.price }}</td>
-                <td style="padding: 1rem;">{{ product.stock }}</td>
-                <td style="padding: 1rem;">
-                    <span class="badge {% if product.is_active %}badge-success{% else %}badge-danger{% endif %}">
-                        {% if product.is_active %}Active{% else %}Off{% endif %}
-                    </span>
-                </td>
-                <td style="padding: 1rem;">
-                    <a href="{% url 'shop:product_edit' product.pk %}" style="color: var(--primary); margin-right: 1rem;"><i class="fas fa-edit"></i></a>
-                    <a href="{% url 'shop:product_delete' product.pk %}" style="color: #e74c3c;"><i class="fas fa-trash"></i></a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="5" style="padding: 3rem; text-align: center; color: var(--text-gray);">No items in shop index.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="card" style="padding: 0;">
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="width: 40px; height: 40px; border-radius: 8px; background: #1a1a1a; overflow: hidden; flex-shrink: 0;">
+                                    {% if product.image %}
+                                    <img src="{{ product.image.url }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                    {% endif %}
+                                </div>
+                                <span style="font-weight: 700;">{{ product.name }}</span>
+                            </div>
+                        </td>
+                        <td>₹{{ product.price }}</td>
+                        <td>{{ product.stock }}</td>
+                        <td>
+                            <span class="badge {% if product.is_active %}badge-success{% else %}badge-danger{% endif %}">
+                                {% if product.is_active %}Active{% else %}Inactive{% endif %}
+                            </span>
+                        </td>
+                        <td>
+                            <div style="display: flex; gap: 0.75rem;">
+                                <a href="{% url 'shop:product_edit' product.pk %}" style="color: var(--primary);"><i class="fas fa-edit"></i></a>
+                                <a href="{% url 'shop:product_delete' product.pk %}" style="color: #EF4444;"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="padding: 4rem; text-align: center; color: var(--text-muted);">No products found in shop.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

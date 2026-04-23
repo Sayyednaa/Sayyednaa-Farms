@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#050505">
     
     <title>{% block title %}Sayyednaa Farms | Premium Organic Living{% endblock %}</title>
-    <meta name="google-site-verification" content="ZvxJyq1LHsjodcy-_JMRKrDJ95_DQJLuiY2griVDMuM" />
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,71 +19,115 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <!-- Desktop Navigation -->
-    <nav>
-        <div class="container nav-container">
-            <a href="{% url 'core:home' %}" class="logo-container">
-                <img src="{% static 'img/logo.png' %}" alt="Sayyednaa Farms Logo" class="logo-img">
+    <header>
+        <div class="container nav-flex">
+            <a href="{% url 'core:home' %}" class="logo">
+                <img src="{% static 'img/logo.png' %}" alt="Sayyednaa Farms">
                 <span class="logo-text">SAYYEDNAA</span>
             </a>
             
-            <ul class="desktop-links">
-                <li><a href="{% url 'core:home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
-                <li><a href="{% url 'core:about' %}" class="nav-link {% if 'about' in request.path %}active{% endif %}">About</a></li>
-                <li><a href="{% url 'shop:product_list' %}" class="nav-link {% if 'shop' in request.path %}active{% endif %}">Shop</a></li>
-                <li><a href="{% url 'core:gallery' %}" class="nav-link {% if 'gallery' in request.path %}active{% endif %}">Gallery</a></li>
+            <nav class="desktop-menu">
+                <a href="{% url 'core:home' %}" class="nav-link">Home</a>
+                <a href="{% url 'core:about' %}" class="nav-link">About</a>
+                <a href="{% url 'shop:product_list' %}" class="nav-link">Shop</a>
+                <a href="{% url 'core:gallery' %}" class="nav-link">Gallery</a>
+                <a href="{% url 'shop:cart' %}" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i> Cart 
+                    {% if cart_count > 0 %}
+                    <span style="background: var(--primary); color: #000; font-size: 0.6rem; padding: 0.1rem 0.35rem; border-radius: 50%; font-weight: 900; vertical-align: top; margin-left: -5px;">{{ cart_count }}</span>
+                    {% endif %}
+                </a>
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'core:profile' %}" class="nav-link {% if 'profile' in request.path %}active{% endif %}">Account</a></li>
+                    <a href="{% url 'core:profile' %}" class="nav-link">Account</a>
                     {% if user.is_staff %}
-                    <li><a href="{% url 'core:dashboard' %}" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Admin Panel</a></li>
+                        <a href="{% url 'core:dashboard' %}" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Admin</a>
                     {% endif %}
                 {% else %}
-                    <li><a href="{% url 'core:login' %}" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.8rem;">Sign In</a></li>
+                    <a href="{% url 'core:login' %}" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.8rem;">Sign In</a>
                 {% endif %}
-            </ul>
-            
-            <!-- Mobile Menu Toggle (Simplified) -->
-            <button id="menu-toggle" class="menu-btn" style="display: none;" aria-label="Toggle Menu">
-                <i class="fas fa-bars"></i>
+            </nav>
+
+            <button class="hamburger" id="hamburger-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
         </div>
-    </nav>
+    </header>
 
-    <!-- Mobile Bottom Navigation -->
+    <!-- Mobile Side Drawer -->
+    <div class="mobile-drawer" id="mobile-drawer">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 1.25rem; border-bottom: 1px solid var(--border-glass);">
+            <span class="logo-text">SAYYEDNAA</span>
+            <button id="drawer-close" style="background: none; border: none; color: white; font-size: 1.5rem;"><i class="fas fa-times"></i></button>
+        </div>
+        <nav style="display: flex; flex-direction: column; padding: 2rem 1.25rem; gap: 1.5rem;">
+            <a href="{% url 'core:home' %}" class="nav-link" style="font-size: 1.25rem;">Home</a>
+            <a href="{% url 'core:about' %}" class="nav-link" style="font-size: 1.25rem;">About</a>
+            <a href="{% url 'shop:product_list' %}" class="nav-link" style="font-size: 1.25rem;">Shop</a>
+            <a href="{% url 'core:gallery' %}" class="nav-link" style="font-size: 1.25rem;">Gallery</a>
+            <a href="{% url 'shop:cart' %}" class="nav-link" style="font-size: 1.25rem;">Cart</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'core:profile' %}" class="nav-link" style="font-size: 1.25rem;">My Account</a>
+                <form action="{% url 'core:logout' %}" method="post">{% csrf_token %}<button type="submit" style="background:none; border:none; color:#EF4444; font-weight:700; font-size:1.25rem; padding:0;">Logout</button></form>
+            {% else %}
+                <a href="{% url 'core:login' %}" class="btn btn-primary" style="margin-top: 1rem;">Sign In</a>
+            {% endif %}
+        </nav>
+    </div>
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+
+    <!-- Mobile Navigation -->
     <div class="mobile-nav">
-        <a href="{% url 'core:home' %}" class="mobile-nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+        <a href="{% url 'core:home' %}" class="mobile-nav-link">
             <i class="fas fa-home"></i>
             <span>Home</span>
         </a>
-        <a href="{% url 'shop:product_list' %}" class="mobile-nav-item {% if 'shop' in request.path %}active{% endif %}">
+        <a href="{% url 'shop:product_list' %}" class="mobile-nav-link">
             <i class="fas fa-shopping-bag"></i>
             <span>Shop</span>
         </a>
-        <a href="{% url 'core:gallery' %}" class="mobile-nav-item {% if 'gallery' in request.path %}active{% endif %}">
+        <a href="{% url 'shop:cart' %}" class="mobile-nav-link" style="position: relative;">
+            <i class="fas fa-shopping-cart"></i>
+            {% if cart_count > 0 %}
+            <span style="position: absolute; top: -5px; right: 5px; background: var(--primary); color: #000; font-size: 0.6rem; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 900;">{{ cart_count }}</span>
+            {% endif %}
+            <span>Cart</span>
+        </a>
+        <a href="{% url 'core:gallery' %}" class="mobile-nav-link">
             <i class="fas fa-images"></i>
             <span>Gallery</span>
         </a>
         {% if user.is_authenticated %}
-        <a href="{% url 'core:profile' %}" class="mobile-nav-item {% if 'profile' in request.path %}active{% endif %}">
+        <a href="{% url 'core:profile' %}" class="mobile-nav-link">
             <i class="fas fa-user-circle"></i>
             <span>Profile</span>
         </a>
         {% else %}
-        <a href="{% url 'core:login' %}" class="mobile-nav-item {% if 'login' in request.path %}active{% endif %}">
+        <a href="{% url 'core:login' %}" class="mobile-nav-link">
             <i class="fas fa-sign-in-alt"></i>
             <span>Join</span>
         </a>
         {% endif %}
     </div>
 
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/919140417935" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <main>
         {% if messages %}
         <div class="container" style="margin-top: 1rem;">
             {% for message in messages %}
-            <div class="badge {% if message.tags == 'success' %}badge-success{% else %}badge-danger{% endif %}" style="width: 100%; justify-content: center; padding: 1rem; margin-bottom: 1rem;">
-                <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
-                {{ message }}
-            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    showToast("{{ message }}", "{% if message.tags == 'success' %}success{% else %}danger{% endif %}");
+                });
+            </script>
             {% endfor %}
         </div>
         {% endif %}
@@ -91,46 +135,53 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer>
+    <footer class="footer-v2">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <a href="{% url 'core:home' %}" class="logo-container">
-                        <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo-img" style="height: 32px;">
-                        <span class="logo-text" style="font-size: 1rem;">SAYYEDNAA</span>
+            <div class="footer-grid">
+                <div>
+                    <a href="{% url 'core:home' %}" class="logo" style="margin-bottom: 1.5rem;">
+                        <img src="{% static 'img/logo.png' %}" alt="Logo">
+                        <span class="logo-text">SAYYEDNAA</span>
                     </a>
-                    <p>Pioneering sustainable agriculture and premium organic living. From our fields to your table.</p>
+                    <p style="color: var(--text-secondary); max-width: 300px;">Pioneering sustainable agriculture and premium organic living since 2020.</p>
                 </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="{% url 'core:home' %}">Home</a></li>
-                        <li><a href="{% url 'core:about' %}">About Us</a></li>
-                        <li><a href="{% url 'shop:product_list' %}">Shop</a></li>
-                        <li><a href="{% url 'core:gallery' %}">Gallery</a></li>
+                <div>
+                    <h4 style="margin-bottom: 1.5rem;">Quick Links</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+                        <li><a href="{% url 'core:home' %}" style="color: var(--text-muted);">Home</a></li>
+                        <li><a href="{% url 'core:about' %}" style="color: var(--text-muted);">About Us</a></li>
+                        <li><a href="{% url 'shop:product_list' %}" style="color: var(--text-muted);">Farm Shop</a></li>
+                        <li><a href="{% url 'core:gallery' %}" style="color: var(--text-muted);">Gallery</a></li>
                     </ul>
                 </div>
-                <div class="footer-links">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Shipping Info</a></li>
+                <div>
+                    <h4 style="margin-bottom: 1.5rem;">Support</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+                        <li><a href="{% url 'core:contact' %}" style="color: var(--text-muted);">Contact Us</a></li>
+                        <li><a href="{% url 'core:privacy' %}" style="color: var(--text-muted);">Privacy Policy</a></li>
+                        <li><a href="{% url 'core:terms' %}" style="color: var(--text-muted);">Terms of Service</a></li>
+                        <li><a href="{% url 'core:shipping' %}" style="color: var(--text-muted);">Collection Info</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p class="footer-copy">&copy; 2026 Sayyednaa Farms. All rights reserved.</p>
-                <div style="display: flex; gap: 1.5rem;">
-                    <a href="#" class="text-muted"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-muted"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="text-muted"><i class="fab fa-twitter"></i></a>
+                <p>&copy; 2026 Sayyednaa Farms. All rights reserved.</p>
+                <div style="display: flex; gap: 1.5rem; font-size: 1.25rem;">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Lightbox for Gallery -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" class="lightbox-img" src="" alt="Zoomed view">
+    </div>
+
+    <script src="{% static 'js/main.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
