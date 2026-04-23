@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Farm Shop | Sayyednaa Farms - Fresh & Organic{% endblock %}
+
+{% block content %}
+<section class="container animate-fade-in-up" style="padding-top: 6rem;">
+    <div style="text-align: center; margin-bottom: 5rem;">
+        <span class="hero-label">From our Farm</span>
+        <h1 class="font-heading" style="font-size: 3.5rem; margin-bottom: 1.5rem;">Pure <span class="text-gradient">Harvest</span></h1>
+        <p style="color: var(--text-secondary); font-size: 1.25rem; max-width: 600px; margin: 0 auto;">Directly from our fields to your kitchen. Discover the finest selection of organic produce and livestock.</p>
+    </div>
+
+    <div class="grid">
+        {% for product in products %}
+        <div class="card">
+            <div class="card-img-wrapper">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img">
+                {% else %}
+                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--bg-obsidian);">
+                    <i class="fas fa-shopping-basket" style="font-size: 4rem; color: var(--border-glass);"></i>
+                </div>
+                {% endif %}
+                <span class="card-tag">{{ product.category.name|default:"Organic" }}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <h3 class="font-heading" style="font-size: 1.5rem;">{{ product.name }}</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.6; margin-bottom: 1.5rem;">{{ product.description|truncatewords:15 }}</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+                    <div>
+                        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Price</span>
+                        <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">₹{{ product.price }}</span>
+                    </div>
+                    <a href="{% url 'shop:product_detail' product.pk %}" class="btn btn-primary" style="padding: 0.75rem 1.25rem;">
+                        Details <i class="fas fa-arrow-right" style="margin-left: 0.5rem; font-size: 0.8rem;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="card glass" style="grid-column: 1 / -1; text-align: center; padding: 6rem;">
+            <i class="fas fa-seedling" style="font-size: 4rem; color: var(--text-muted); margin-bottom: 1.5rem; opacity: 0.3;"></i>
+            <h3 class="font-heading" style="font-size: 1.5rem; margin-bottom: 0.5rem;">The fields are resting</h3>
+            <p style="color: var(--text-muted);">No products are available at the moment. Please check back later for the next harvest.</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

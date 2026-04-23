@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Story | Sayyednaa Farms - Premium Organic Heritage{% endblock %}
+
+{% block content %}
+<section class="container animate-fade-in-up" style="padding-top: 6rem;">
+    <div style="text-align: center; margin-bottom: 6rem;">
+        <span class="hero-label">The Heritage</span>
+        <h1 class="font-heading" style="font-size: 4rem; margin-bottom: 1.5rem;">Our <span class="text-gradient">Story</span></h1>
+        <p style="color: var(--text-secondary); font-size: 1.25rem; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+            Sayyednaa Farms is built on a foundation of tradition, integrity, and innovation. 
+            What started as a passion for pure, organic living has grown into a modern agricultural enterprise 
+            dedicated to providing the highest quality livestock and crops.
+        </p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 5rem;">
+        <!-- Founder Card -->
+        <div class="card glass" style="padding: 4rem;">
+            <div style="display: flex; gap: 4rem; align-items: center; flex-wrap: wrap;">
+                <div style="width: 280px; height: 350px; border-radius: 24px; overflow: hidden; border: 1px solid var(--border-glow); box-shadow: var(--shadow-lg);">
+                    <img src="{% static 'img/founder.jpg' %}" alt="Sayyed Nawab Abdul Adil" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="flex: 1; min-width: 320px;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <span class="badge badge-success">FOUNDER</span>
+                        <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em;">VETERINARY SPECIALIST</span>
+                    </div>
+                    <h2 class="font-heading" style="font-size: 3rem; margin-bottom: 1.5rem;">Sayyed Nawab Abdul Adil</h2>
+                    <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.1rem;">
+                        With over 12 years of hands-on experience in Veterinary Science and Farm Management, Sayyed Nawab Abdul Adil is the guiding force behind the health and sustainability of Sayyednaa Farms. His deep expertise in animal welfare and organic breeding ensures that every aspect of our livestock operations meets the highest global standards of purity and care.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Co-Founder Card -->
+        <div class="card" style="padding: 4rem; background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), transparent);">
+            <div style="display: flex; gap: 4rem; align-items: center; flex-wrap: wrap; flex-direction: row-reverse;">
+                <div style="width: 280px; height: 350px; border-radius: 24px; overflow: hidden; border: 1px solid rgba(245, 158, 11, 0.2); box-shadow: var(--shadow-lg);">
+                    <img src="{% static 'img/co-founder.jpg' %}" alt="Sayyed Nawab Abdul Ali" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="flex: 1; min-width: 320px;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <span class="badge badge-warning">CO-FOUNDER</span>
+                        <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em;">SOFTWARE ENGINEER</span>
+                    </div>
+                    <h2 class="font-heading" style="font-size: 3rem; margin-bottom: 1.5rem;">Sayyed Nawab Abdul Ali</h2>
+                    <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.1rem;">
+                        Bridging the gap between software engineering and agriculture, Sayyed Nawab Abdul Ali leads the technological evolution of our farm. From precision inventory tracking to data-driven crop management systems, his vision is to empower modern agriculture with digital intelligence, ensuring Sayyednaa Farms remains at the cutting edge of efficiency and sustainability.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vision / Mission -->
+    <div style="margin-top: 10rem; position: relative; padding: 8rem 2rem; overflow: hidden; border-radius: 48px; text-align: center;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(16, 185, 129, 0.1), transparent); z-index: -1;"></div>
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <i class="fas fa-quote-left" style="font-size: 3rem; color: var(--primary); opacity: 0.3; margin-bottom: 2rem;"></i>
+            <h2 class="font-heading" style="font-size: 3rem; margin-bottom: 2.5rem;">Our <span class="text-gradient">Vision</span></h2>
+            <p style="font-size: 1.75rem; color: var(--text-primary); line-height: 1.6; font-style: italic; font-weight: 300;">
+                "To redefine organic farming by combining ancestral wisdom with modern scientific veterinary care and digital precision, creating a transparent ecosystem of pure, wholesome food for the next generation."
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Cart | Sayyednaa Farms Shop{% endblock %}
+
+{% block content %}
+<section class="container">
+    <h1 style="margin-bottom: 2rem;">Shopping Cart</h1>
+
+    <div style="display: flex; flex-direction: column; gap: 2rem;">
+        <div class="table-container card" style="padding: 0;">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="padding: 1rem;">Product</th>
+                        <th style="padding: 1rem;">Price</th>
+                        <th style="padding: 1rem;">Qty</th>
+                        <th style="padding: 1rem;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td style="padding: 1rem; display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 50px; height: 50px; border-radius: 8px; background: var(--glass); overflow: hidden;">
+                                {% if item.product.image %}
+                                <img src="{{ item.product.image.url }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                {% endif %}
+                            </div>
+                            <span style="font-weight: 600;">{{ item.product.name }}</span>
+                        </td>
+                        <td style="padding: 1rem;">₹{{ item.product.price }}</td>
+                        <td style="padding: 1rem;">{{ item.quantity }}</td>
+                        <td style="padding: 1rem; font-weight: 700;">₹{{ item.total }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" style="padding: 4rem; text-align: center; color: var(--text-gray);">Your cart is empty.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="card" style="align-self: flex-end; width: 100%; max-width: 400px;">
+            <h3>Order Summary</h3>
+            <div style="margin: 1.5rem 0; border-top: 1px solid var(--border); padding-top: 1rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem;">
+                    <span>Subtotal</span>
+                    <span>₹{{ total }}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: 900; color: var(--secondary); margin-top: 1rem;">
+                    <span>Total</span>
+                    <span>₹{{ total }}</span>
+                </div>
+            </div>
+            {% if cart_items %}
+            <a href="{% url 'shop:checkout' %}" class="btn btn-primary" style="width: 100%;">Proceed to Checkout</a>
+            {% endif %}
+            <a href="{% url 'shop:product_list' %}" style="display: block; text-align: center; margin-top: 1.5rem; color: var(--primary); text-decoration: none; font-size: 0.9rem;">Continue Shopping</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Farm Gallery | Sayyednaa Farms - A Visual Journey{% endblock %}
+
+{% block content %}
+<section class="container animate-fade-in-up" style="padding-top: 6rem;">
+    <div style="text-align: center; margin-bottom: 5rem;">
+        <span class="hero-label">The Visual Journey</span>
+        <h1 class="font-heading" style="font-size: 3.5rem; margin-bottom: 1.5rem;">The <span class="text-gradient">Gallery</span></h1>
+        <p style="color: var(--text-secondary); font-size: 1.25rem; max-width: 600px; margin: 0 auto;">Capturing the daily life, serene landscapes, and organic excellence at Sayyednaa Farms.</p>
+    </div>
+
+    <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+        <!-- User Photos -->
+        <div class="card" style="padding: 0; height: 400px;">
+            <div class="card-img-wrapper" style="height: 100%; margin-bottom: 0;">
+                <img src="{% static 'img/IMG_20220904_140144.jpg' %}" class="card-img" alt="Farm life 1">
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(transparent, rgba(5,5,5,0.9));">
+                    <span class="badge badge-success">Lush Greenery</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="padding: 0; height: 400px;">
+            <div class="card-img-wrapper" style="height: 100%; margin-bottom: 0;">
+                <img src="{% static 'img/IMG_20221012_101619.jpg' %}" class="card-img" alt="Farm life 2">
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(transparent, rgba(5,5,5,0.9));">
+                    <span class="badge badge-success">Morning Harvest</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="padding: 0; height: 400px;">
+            <div class="card-img-wrapper" style="height: 100%; margin-bottom: 0;">
+                <img src="{% static 'img/IMG_20221013_073514.jpg' %}" class="card-img" alt="Farm life 3">
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(transparent, rgba(5,5,5,0.9));">
+                    <span class="badge badge-success">Serene Landscape</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- System/Generated Photos -->
+        <div class="card" style="padding: 0; height: 400px;">
+            <div class="card-img-wrapper" style="height: 100%; margin-bottom: 0;">
+                <img src="{% static 'img/hero.png' %}" class="card-img" alt="Aerial View">
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(transparent, rgba(5,5,5,0.9));">
+                    <span class="badge badge-warning">AERIAL VIEW</span>
+                    <h4 class="font-heading" style="margin-top: 0.5rem; font-size: 1.1rem;">Sayyednaa Horizons</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="padding: 0; height: 400px;">
+            <div class="card-img-wrapper" style="height: 100%; margin-bottom: 0;">
+                <img src="{% static 'img/fish.png' %}" class="card-img" alt="Sustainable Fisheries">
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(transparent, rgba(5,5,5,0.9));">
+                    <span class="badge badge-success">AQUACULTURE</span>
+                    <h4 class="font-heading" style="margin-top: 0.5rem; font-size: 1.1rem;">Sustainable Fisheries</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="padding: 0; height: 400px;">
+            <div class="card-img-wrapper" style="height: 100%; margin-bottom: 0;">
+                <img src="{% static 'img/poultry.png' %}" class="card-img" alt="Poultry Farms">
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(transparent, rgba(5,5,5,0.9));">
+                    <span class="badge badge-warning">LIVESTOCK</span>
+                    <h4 class="font-heading" style="margin-top: 0.5rem; font-size: 1.1rem;">Premium Poultry</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

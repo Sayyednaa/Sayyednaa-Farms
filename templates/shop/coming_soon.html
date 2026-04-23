@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Shop - Coming Soon | Sayyednaa Farms{% endblock %}
+
+{% block content %}
+<div class="coming-soon">
+    <div class="fade-in">
+        <i class="fas fa-shopping-basket" style="font-size: 6rem; color: var(--secondary-color); margin-bottom: 2rem;"></i>
+        <h1>Coming Soon</h1>
+        <p style="font-size: 1.5rem; color: var(--text-muted); max-width: 600px; margin: 0 auto;">We are working hard to bring our fresh farm products directly to your doorstep. Stay tuned for the launch of Sayyednaa Shop!</p>
+        
+        <div style="margin-top: 3rem;">
+            <p>Want to be notified? Join our waitlist.</p>
+            <form style="margin-top: 1rem; display: flex; justify-content: center; gap: 1rem;">
+                <input type="email" placeholder="Enter your email" style="padding: 1rem; border-radius: 10px; border: 1px solid var(--glass-border); background: var(--bg-card); color: white; width: 300px;">
+                <button type="button" class="btn btn-primary" style="margin-top: 0; padding: 1rem 2rem;">Notify Me</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

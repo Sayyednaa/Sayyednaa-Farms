@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}My Orders | Sayyednaa Farms{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 style="margin-bottom: 2rem;">Order History</h1>
+
+    {% for order in orders %}
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+            <div>
+                <h3 style="margin-bottom: 0.3rem;">Order #{{ order.id }}</h3>
+                <p style="color: var(--text-gray); font-size: 0.8rem;">{{ order.created_at|date:"d M Y" }}</p>
+            </div>
+            <div class="badge {% if order.status == 'Delivered' %}badge-success{% else %}badge-warning{% endif %}">
+                {{ order.status }}
+            </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
+            {% for item in order.items.all %}
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                <span style="color: var(--text-gray);">{{ item.quantity }}x {{ item.product.name }}</span>
+                <span>₹{{ item.price_at_purchase }}</span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem;">
+            <span style="font-size: 0.75rem; color: var(--primary);">{{ order.tracking_number|default:"" }}</span>
+            <span style="font-size: 1.4rem; font-weight: 900; color: var(--secondary);">₹{{ order.total_amount }}</span>
+        </div>
+    </div>
+    {% empty %}
+    <div style="text-align: center; padding: 5rem 0;">
+        <i class="fas fa-box-open" style="font-size: 4rem; color: var(--border); margin-bottom: 2rem;"></i>
+        <h2>No orders found</h2>
+        <a href="{% url 'shop:product_list' %}" class="btn btn-primary" style="margin-top: 2rem;">Go to Shop</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

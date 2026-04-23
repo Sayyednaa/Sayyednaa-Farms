@@ -1,0 +1,51 @@
+{% extends 'base_admin.html' %}
+
+{% block title %}Shop Stock | Sayyednaa Farms{% endblock %}
+
+{% block admin_content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h1>Shop Inventory</h1>
+    <a href="{% url 'shop:product_add' %}" class="btn btn-primary" style="margin-top: 0; padding: 0.8rem 1.2rem; font-size: 0.9rem;">+ Add</a>
+</div>
+
+<div class="table-container card" style="padding: 0;">
+    <table>
+        <thead>
+            <tr>
+                <th style="padding: 1rem;">Product</th>
+                <th style="padding: 1rem;">Price</th>
+                <th style="padding: 1rem;">Stock</th>
+                <th style="padding: 1rem;">Status</th>
+                <th style="padding: 1rem;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td style="padding: 1rem; display: flex; align-items: center; gap: 0.8rem;">
+                    <div style="width: 40px; height: 40px; border-radius: 6px; background: var(--glass); overflow: hidden;">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        {% endif %}
+                    </div>
+                    <span style="font-weight: 600;">{{ product.name }}</span>
+                </td>
+                <td style="padding: 1rem;">₹{{ product.price }}</td>
+                <td style="padding: 1rem;">{{ product.stock }}</td>
+                <td style="padding: 1rem;">
+                    <span class="badge {% if product.is_active %}badge-success{% else %}badge-danger{% endif %}">
+                        {% if product.is_active %}Active{% else %}Off{% endif %}
+                    </span>
+                </td>
+                <td style="padding: 1rem;">
+                    <a href="{% url 'shop:product_edit' product.pk %}" style="color: var(--primary); margin-right: 1rem;"><i class="fas fa-edit"></i></a>
+                    <a href="{% url 'shop:product_delete' product.pk %}" style="color: #e74c3c;"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" style="padding: 3rem; text-align: center; color: var(--text-gray);">No items in shop index.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

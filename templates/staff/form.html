@@ -1,0 +1,51 @@
+{% extends 'base_admin.html' %}
+
+{% block title %}{{ title|default:"Manage" }} | Sayyednaa Farms{% endblock %}
+
+{% block admin_content %}
+<section class="section" style="padding-top: 2rem;">
+    <div style="max-width: 700px; margin: 0 auto;">
+        <h1 style="margin-bottom: 2rem;">{{ title|default:"Management Form" }}</h1>
+        
+        <div class="card" style="padding: 2.5rem;">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 600;">{{ field.label }}</label>
+                    {{ field.errors }}
+                    <div class="form-control-wrapper">
+                        {{ field }}
+                    </div>
+                </div>
+                {% endfor %}
+                <div style="margin-top: 2rem; border-top: 1px solid var(--glass-border); padding-top: 2rem;">
+                    <button type="submit" class="btn btn-primary" style="margin-top: 0; padding: 0.8rem 2.5rem;">Save Changes</button>
+                    <a href="javascript:history.back()" style="margin-left: 1rem; color: var(--text-muted); text-decoration: none;">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<style>
+    .form-control-wrapper input, 
+    .form-control-wrapper select, 
+    .form-control-wrapper textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border-radius: 8px;
+        border: 1px solid var(--glass-border);
+        background: var(--bg-card);
+        color: white;
+        font-family: inherit;
+    }
+    .form-control-wrapper input[type="file"] {
+        padding: 0.5rem;
+    }
+    .form-control-wrapper select option {
+        background: #222;
+        color: white;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Address | Sayyednaa Farms{% endblock %}
+
+{% block content %}
+<div class="container" style="min-height: 80vh; display: flex; align-items: center; justify-content: center;">
+    <div class="card" style="width: 100%; max-width: 500px;">
+        <h1 style="margin-bottom: 2rem;">Add New Address</h1>
+        
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div style="margin-bottom: 1.5rem;">
+                <label style="font-size: 0.9rem; color: var(--text-gray);">{{ field.label }}</label>
+                {{ field.errors }}
+                {{ field }}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save Address</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Sayyednaa Farms - Premium Organic Living. Experience the finest organic produce and farm-to-table excellence.">
+    <meta name="theme-color" content="#050505">
+    
+    <title>{% block title %}Sayyednaa Farms | Premium Organic Living{% endblock %}</title>
+    <meta name="google-site-verification" content="ZvxJyq1LHsjodcy-_JMRKrDJ95_DQJLuiY2griVDMuM" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Desktop Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <a href="{% url 'core:home' %}" class="logo-container">
+                <img src="{% static 'img/logo.png' %}" alt="Sayyednaa Farms Logo" class="logo-img">
+                <span class="logo-text">SAYYEDNAA</span>
+            </a>
+            
+            <ul class="desktop-links">
+                <li><a href="{% url 'core:home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
+                <li><a href="{% url 'core:about' %}" class="nav-link {% if 'about' in request.path %}active{% endif %}">About</a></li>
+                <li><a href="{% url 'shop:product_list' %}" class="nav-link {% if 'shop' in request.path %}active{% endif %}">Shop</a></li>
+                <li><a href="{% url 'core:gallery' %}" class="nav-link {% if 'gallery' in request.path %}active{% endif %}">Gallery</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'core:profile' %}" class="nav-link {% if 'profile' in request.path %}active{% endif %}">Account</a></li>
+                    {% if user.is_staff %}
+                    <li><a href="{% url 'core:dashboard' %}" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Admin Panel</a></li>
+                    {% endif %}
+                {% else %}
+                    <li><a href="{% url 'core:login' %}" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.8rem;">Sign In</a></li>
+                {% endif %}
+            </ul>
+            
+            <!-- Mobile Menu Toggle (Simplified) -->
+            <button id="menu-toggle" class="menu-btn" style="display: none;" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Bottom Navigation -->
+    <div class="mobile-nav">
+        <a href="{% url 'core:home' %}" class="mobile-nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="{% url 'shop:product_list' %}" class="mobile-nav-item {% if 'shop' in request.path %}active{% endif %}">
+            <i class="fas fa-shopping-bag"></i>
+            <span>Shop</span>
+        </a>
+        <a href="{% url 'core:gallery' %}" class="mobile-nav-item {% if 'gallery' in request.path %}active{% endif %}">
+            <i class="fas fa-images"></i>
+            <span>Gallery</span>
+        </a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'core:profile' %}" class="mobile-nav-item {% if 'profile' in request.path %}active{% endif %}">
+            <i class="fas fa-user-circle"></i>
+            <span>Profile</span>
+        </a>
+        {% else %}
+        <a href="{% url 'core:login' %}" class="mobile-nav-item {% if 'login' in request.path %}active{% endif %}">
+            <i class="fas fa-sign-in-alt"></i>
+            <span>Join</span>
+        </a>
+        {% endif %}
+    </div>
+
+    <main>
+        {% if messages %}
+        <div class="container" style="margin-top: 1rem;">
+            {% for message in messages %}
+            <div class="badge {% if message.tags == 'success' %}badge-success{% else %}badge-danger{% endif %}" style="width: 100%; justify-content: center; padding: 1rem; margin-bottom: 1rem;">
+                <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="{% url 'core:home' %}" class="logo-container">
+                        <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo-img" style="height: 32px;">
+                        <span class="logo-text" style="font-size: 1rem;">SAYYEDNAA</span>
+                    </a>
+                    <p>Pioneering sustainable agriculture and premium organic living. From our fields to your table.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{% url 'core:home' %}">Home</a></li>
+                        <li><a href="{% url 'core:about' %}">About Us</a></li>
+                        <li><a href="{% url 'shop:product_list' %}">Shop</a></li>
+                        <li><a href="{% url 'core:gallery' %}">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2026 Sayyednaa Farms. All rights reserved.</p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="#" class="text-muted"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-muted"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-muted"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container admin-layout" style="margin-top: 2rem;">
+    <!-- Horizontal Tab Navigation for Mobile / Sidebar for Desktop -->
+    <aside class="admin-sidebar" style="overflow-x: auto;">
+        <ul style="list-style: none; display: flex; flex-direction: row; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem;">
+            <!-- These will stack to vertical on Desktop via CSS media queries in style.css -->
+            <li><a href="{% url 'core:dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" style="white-space: nowrap; font-size: 0.9rem; padding: 0.8rem 1.2rem;"><i class="fas fa-chart-line"></i> Summary</a></li>
+            <li><a href="{% url 'livestock:index' %}" class="{% if 'livestock' in request.path %}active{% endif %}" style="white-space: nowrap; font-size: 0.9rem; padding: 0.8rem 1.2rem;"><i class="fas fa-paw"></i> Livestock</a></li>
+            <li><a href="{% url 'crops:index' %}" class="{% if 'crops' in request.path %}active{% endif %}" style="white-space: nowrap; font-size: 0.9rem; padding: 0.8rem 1.2rem;"><i class="fas fa-leaf"></i> Crops</a></li>
+            <li><a href="{% url 'inventory:list' %}" class="{% if 'inventory' in request.path %}active{% endif %}" style="white-space: nowrap; font-size: 0.9rem; padding: 0.8rem 1.2rem;"><i class="fas fa-boxes"></i> Inventory</a></li>
+            <li><a href="{% url 'shop:staff_dashboard' %}" class="{% if 'shop/staff' in request.path %}active{% endif %}" style="white-space: nowrap; font-size: 0.9rem; padding: 0.8rem 1.2rem;"><i class="fas fa-shopping-cart"></i> Shop</a></li>
+        </ul>
+    </aside>
+
+    <div class="admin-content" style="flex: 1;">
+        {% block admin_content %}{% endblock %}
+    </div>
+</div>
+
+<style>
+    /* Admin Mobile Sidebar Adjustment */
+    @media (min-width: 1024px) {
+        .admin-sidebar ul {
+            flex-direction: column !important;
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+            gap: 1rem !important;
+        }
+        .admin-sidebar a {
+            font-size: 1rem !important;
+        }
+    }
+    
+    /* Ensure tables don't break layout */
+    .admin-content .card {
+        padding: 1rem;
+    }
+</style>
+{% endblock %}

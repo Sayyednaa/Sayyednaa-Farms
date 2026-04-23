@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout | Sayyednaa Farms Shop{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h1 style="margin-bottom: 3rem; text-align: center;">Secure Checkout</h1>
+        
+        <div class="card" style="padding: 3rem;">
+            <form method="post">
+                {% csrf_token %}
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem;">Full Name</label>
+                        <input type="text" name="name" required style="width: 100%; padding: 1rem; border-radius: 8px; border: 1px solid var(--glass-border); background: var(--bg-card); color: white;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem;">Email Address</label>
+                        <input type="email" name="email" required style="width: 100%; padding: 1rem; border-radius: 8px; border: 1px solid var(--glass-border); background: var(--bg-card); color: white;">
+                    </div>
+                </div>
+                <div style="margin-bottom: 2rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">Phone Number</label>
+                    <input type="text" name="phone" required style="width: 100%; padding: 1rem; border-radius: 8px; border: 1px solid var(--glass-border); background: var(--bg-card); color: white;">
+                </div>
+                <div style="margin-bottom: 3rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">Delivery Address</label>
+                    <textarea name="address" required style="width: 100%; padding: 1rem; border-radius: 8px; border: 1px solid var(--glass-border); background: var(--bg-card); color: white; height: 100px;"></textarea>
+                </div>
+
+                <div style="border-top: 1px solid var(--glass-border); padding-top: 2rem; text-align: right;">
+                    <button type="submit" class="btn btn-primary" style="margin-top: 0; padding: 1.2rem 4rem; font-size: 1.2rem;">Place Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
