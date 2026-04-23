@@ -15,7 +15,18 @@
         <!-- Contact Form -->
         <div class="card glass">
             <h3 style="margin-bottom: 2rem;">Send a Message</h3>
-            <form action="#" method="post">
+            
+            {% if messages %}
+            <div style="margin-bottom: 2rem;">
+                {% for message in messages %}
+                <div class="badge {% if message.tags == 'success' %}badge-success{% else %}badge-error{% endif %}" style="width: 100%; padding: 1rem; margin-bottom: 0.5rem; text-align: center;">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form action="{% url 'core:contact' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     <label class="label">Your Name</label>
@@ -27,12 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label class="label">Subject</label>
-                    <select name="subject">
-                        <option>Product Inquiry</option>
-                        <option>Farm Tour</option>
-                        <option>Bulk Order</option>
-                        <option>Other</option>
-                    </select>
+                    <input type="text" name="subject" placeholder="What is this about?" required>
                 </div>
                 <div class="form-group">
                     <label class="label">Message</label>
@@ -51,7 +57,7 @@
                     </div>
                     <div>
                         <h4 style="margin-bottom: 0.25rem;">Our Location</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem;">SAYYEDNAA FARMS, Tetari Bazar, Uttar Pradesh 272201, India</p>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Mahdhwapur Kalan, Chetiya-Shohratgarh Road, Siddharth Nagar</p>
                     </div>
                 </div>
             </div>
@@ -62,7 +68,7 @@
                     </div>
                     <div>
                         <h4 style="margin-bottom: 0.25rem;">Phone Number</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem;">+91 9140417935</p>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">+91 6388757553</p>
                     </div>
                 </div>
             </div>
@@ -81,7 +87,7 @@
             <div class="card" style="margin-top: 1rem; border-color: var(--primary-glow);">
                 <h4 style="margin-bottom: 1rem;">Direct Support</h4>
                 <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">For faster response, chat with us on WhatsApp.</p>
-                <a href="https://wa.me/919140417935" target="_blank" class="btn btn-outline" style="width: 100%; border-color: #25D366; color: #25D366;">
+                <a href="https://wa.me/916388757553" target="_blank" class="btn btn-outline" style="width: 100%; border-color: #25D366; color: #25D366;">
                     Chat on WhatsApp <i class="fab fa-whatsapp"></i>
                 </a>
             </div>

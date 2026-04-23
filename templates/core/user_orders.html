@@ -1,60 +1,50 @@
 {% extends 'base.html' %}
 
-{% block title %}My Orders | Sayyednaa Farms{% endblock %}
+{% block title %}SAYYEDNAA FARMS | MY ORDERS{% endblock %}
 
 {% block content %}
 <section class="container animate-up" style="padding-top: 6rem;">
-    <h1 class="section-title" style="text-align: left; margin-bottom: 2rem;">Order <span class="text-gradient">History</span></h1>
+    <div class="section-header" style="text-align: left; margin-bottom: 3rem;">
+        <span class="badge badge-success" style="margin-bottom: 1rem;">ORDER HISTORY</span>
+        <h1 class="section-title">My <span class="text-gradient">Orders</span></h1>
+        <p class="section-subtitle">Track your farmhouse collection requests and order status.</p>
+    </div>
 
-    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-        {% for order in orders %}
-        <div class="card glass" style="padding: 1.5rem;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-                <div>
-                    <h3 style="margin-bottom: 0.25rem;">Order #{{ order.id }}</h3>
-                    <p style="color: var(--text-muted); font-size: 0.8rem;">Placed on {{ order.created_at|date:"d M Y, h:i A" }}</p>
-                </div>
-                <div class="badge {% if order.status == 'Delivered' %}badge-success{% else %}badge-warning{% endif %}">
-                    {{ order.status }}
-                </div>
-            </div>
-
-            <div style="border-top: 1px solid var(--border-glass); padding-top: 1.25rem; margin-bottom: 1.5rem;">
-                <h4 style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem;">Items</h4>
-                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                    {% for item in order.items.all %}
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div style="display: flex; gap: 1rem; align-items: center;">
-                            <span style="color: var(--primary); font-weight: 700;">{{ item.quantity }}x</span>
-                            <span style="font-size: 0.95rem;">{{ item.product.name }}</span>
+    <div class="card glass" style="padding: 0; overflow: hidden;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background: rgba(255,255,255,0.05); text-align: left;">
+                    <th style="padding: 1rem 1.5rem;">Order #</th>
+                    <th style="padding: 1rem 1.5rem;">Date</th>
+                    <th style="padding: 1rem 1.5rem;">Total</th>
+                    <th style="padding: 1rem 1.5rem;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr style="border-top: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 1.5rem; font-weight: 600;">#{{ order.id }}</td>
+                    <td style="padding: 1.5rem; opacity: 0.8;">{{ order.created_at|date:"M d, Y" }}</td>
+                    <td style="padding: 1.5rem; font-weight: 600;">₹{{ order.total_amount }}</td>
+                    <td style="padding: 1.5rem;">
+                        <span class="badge {% if order.status == 'Pending' or order.status == 'Processing' %}badge-warning{% elif order.status == 'Delivered' %}badge-success{% else %}badge-error{% endif %}">
+                            {{ order.get_status_display|upper }}
+                        </span>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" style="padding: 4rem; text-align: center; color: var(--text-secondary);">
+                        <div style="margin-bottom: 1.5rem; font-size: 2rem; opacity: 0.3;">
+                            <i class="fas fa-shopping-basket"></i>
                         </div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">₹{{ item.price_at_purchase }}</span>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid var(--border-glass); padding-top: 1.25rem;">
-                <div>
-                    {% if order.tracking_number %}
-                    <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">TRACKING NUMBER</span>
-                    <span style="color: var(--primary); font-weight: 700; font-family: monospace;">{{ order.tracking_number }}</span>
-                    {% endif %}
-                </div>
-                <div style="text-align: right;">
-                    <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">TOTAL AMOUNT</span>
-                    <span style="font-size: 1.5rem; font-weight: 900; color: var(--primary);">₹{{ order.total_amount }}</span>
-                </div>
-            </div>
-        </div>
-        {% empty %}
-        <div class="card glass" style="text-align: center; padding: 6rem 2rem;">
-            <i class="fas fa-box-open" style="font-size: 5rem; color: var(--border-glass); margin-bottom: 2rem;"></i>
-            <h2>No orders found</h2>
-            <p style="color: var(--text-muted); margin-bottom: 2rem;">You haven't placed any orders yet.</p>
-            <a href="{% url 'shop:product_list' %}" class="btn btn-primary">Start Shopping</a>
-        </div>
-        {% endfor %}
+                        <p>You haven't placed any orders yet.</p>
+                        <a href="{% url 'shop:product_list' %}" class="btn btn-outline" style="margin-top: 1.5rem;">Start Shopping</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </section>
 {% endblock %}

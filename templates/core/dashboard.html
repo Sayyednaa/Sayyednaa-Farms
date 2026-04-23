@@ -3,80 +3,151 @@
 {% block title %}SAYYEDNAA FARMS | STAFF DASHBOARD{% endblock %}
 
 {% block admin_content %}
-<div class="animate-up">
-    <div class="grid grid-4" style="margin-bottom: 2rem;">
-        <div class="card glass" style="text-align: center;">
-            <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Livestock</p>
-            <h2 style="font-size: 2.25rem; color: var(--primary);">582</h2>
-            <p style="font-size: 0.7rem; color: #10B981; margin-top: 0.25rem;">+12 this month</p>
-        </div>
-        <div class="card glass" style="text-align: center;">
-            <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Plantations</p>
-            <h2 style="font-size: 2.25rem; color: var(--accent);">1,240</h2>
-            <p style="font-size: 0.7rem; color: #10B981; margin-top: 0.25rem;">Active growth</p>
-        </div>
-        <div class="card glass" style="text-align: center;">
-            <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Monthly Revenue</p>
-            <h2 style="font-size: 2.25rem; color: var(--secondary);">₹42.5k</h2>
-            <p style="font-size: 0.7rem; color: #10B981; margin-top: 0.25rem;">+8.2% vs last</p>
-        </div>
-        <div class="card glass" style="text-align: center;">
-            <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Pending Orders</p>
-            <h2 style="font-size: 2.25rem; color: #EF4444;">12</h2>
-            <p style="font-size: 0.7rem; color: #EF4444; margin-top: 0.25rem;">Needs action</p>
-        </div>
+    <!-- Quick Actions -->
+    <div class="grid grid-4" style="margin-bottom: 3rem;">
+        <a href="{% url 'shop:product_list' %}" class="card glass animate-up" style="text-align: center; padding: 2rem; border-color: var(--primary-glow);">
+            <div style="width: 50px; height: 50px; background: var(--primary-glow); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: var(--primary);">
+                <i class="fas fa-shopping-basket"></i>
+            </div>
+            <h4>Manage Shop</h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary);">Update products & categories</p>
+        </a>
+        <a href="{% url 'livestock:index' %}" class="card glass animate-up" style="text-align: center; padding: 2rem; animation-delay: 0.1s;">
+            <div style="width: 50px; height: 50px; background: rgba(99, 102, 241, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: var(--accent);">
+                <i class="fas fa-cow"></i>
+            </div>
+            <h4>Livestock</h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary);">Health & feeding records</p>
+        </a>
+        <a href="{% url 'crops:index' %}" class="card glass animate-up" style="text-align: center; padding: 2rem; animation-delay: 0.2s;">
+            <div style="width: 50px; height: 50px; background: rgba(245, 158, 11, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: var(--secondary);">
+                <i class="fas fa-seedling"></i>
+            </div>
+            <h4>Crop Cycles</h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary);">Planning & harvest tracking</p>
+        </a>
+        <a href="{% url 'inventory:list' %}" class="card glass animate-up" style="text-align: center; padding: 2rem; animation-delay: 0.3s;">
+            <div style="width: 50px; height: 50px; background: rgba(239, 68, 68, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: #ef4444;">
+                <i class="fas fa-boxes"></i>
+            </div>
+            <h4>Inventory</h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary);">Equipment & feed stock</p>
+        </a>
     </div>
 
-    <div class="grid grid-2">
-        <div class="card">
-            <h3 style="margin-bottom: 1.5rem;">Health Alerts</h3>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Animal</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>GS-102</td>
-                            <td>Goat (Beetal)</td>
-                            <td><span class="badge badge-warning">Treatment</span></td>
-                        </tr>
-                        <tr>
-                            <td>PC-55</td>
-                            <td>Duck (Pekin)</td>
-                            <td><span class="badge badge-success">Recovered</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="card">
-            <h3 style="margin-bottom: 1.5rem;">Harvest Forecast</h3>
-            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                <div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                        <span style="font-size: 0.9rem;">Mango (Sindhri)</span>
-                        <span style="font-size: 0.8rem; color: var(--primary);">15 Days Left</span>
-                    </div>
-                    <div style="height: 6px; background: #222; border-radius: 3px; overflow: hidden;">
-                        <div style="width: 85%; height: 100%; background: var(--primary);"></div>
-                    </div>
-                </div>
-                <div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                        <span style="font-size: 0.9rem;">Lemon (Seedless)</span>
-                        <span style="font-size: 0.8rem; color: var(--primary);">7 Days Left</span>
-                    </div>
-                    <div style="height: 6px; background: #222; border-radius: 3px; overflow: hidden;">
-                        <div style="width: 92%; height: 100%; background: var(--primary);"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Message Management Section -->
+    <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+        <h2 class="section-title" style="font-size: 1.5rem;">Customer <span class="text-gradient">Messages</span></h2>
+    </div>
+
+    <div class="card glass" style="padding: 0; overflow: hidden; margin-bottom: 2rem;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background: rgba(255,255,255,0.05); text-align: left;">
+                    <th style="padding: 1rem 1.5rem;">Status</th>
+                    <th style="padding: 1rem 1.5rem;">From</th>
+                    <th style="padding: 1rem 1.5rem;">Subject</th>
+                    <th style="padding: 1rem 1.5rem;">Date</th>
+                    <th style="padding: 1rem 1.5rem; text-align: right;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for msg in messages_list %}
+                <tr style="border-top: 1px solid rgba(255,255,255,0.05); {% if not msg.is_read %}background: rgba(16, 185, 129, 0.03);{% endif %}">
+                    <td style="padding: 1.5rem;">
+                        {% if msg.is_read %}
+                        <span class="badge" style="background: rgba(255,255,255,0.1); color: var(--text-muted);">READ</span>
+                        {% else %}
+                        <span class="badge badge-success">NEW</span>
+                        {% endif %}
+                    </td>
+                    <td style="padding: 1.5rem;">
+                        <div style="font-weight: 600;">{{ msg.name }}</div>
+                        <div style="font-size: 0.8rem; opacity: 0.6;">{{ msg.email }}</div>
+                    </td>
+                    <td style="padding: 1.5rem;">
+                        <div style="font-weight: 500;">{{ msg.subject }}</div>
+                        <div style="font-size: 0.8rem; opacity: 0.7; max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ msg.message }}</div>
+                    </td>
+                    <td style="padding: 1.5rem; font-size: 0.85rem; opacity: 0.7;">{{ msg.created_at|date:"M d, Y" }}</td>
+                    <td style="padding: 1.5rem; text-align: right;">
+                        <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+                            {% if not msg.is_read %}
+                            <form method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="message_id" value="{{ msg.id }}">
+                                <input type="hidden" name="action" value="mark_read">
+                                <button type="submit" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.75rem;">Mark Read</button>
+                            </form>
+                            {% endif %}
+                            <form method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this message?');">
+                                {% csrf_token %}
+                                <input type="hidden" name="message_id" value="{{ msg.id }}">
+                                <input type="hidden" name="action" value="delete">
+                                <button type="submit" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.75rem; border-color: rgba(239, 68, 68, 0.5); color: #ef4444;">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="padding: 3rem; text-align: center; color: var(--text-muted);">
+                        No messages received yet.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Shop Orders Section -->
+    <div class="section-header" style="text-align: left; margin: 3rem 0 2rem;">
+        <h2 class="section-title" style="font-size: 1.5rem;">Recent <span class="text-gradient">Shop Orders</span></h2>
+    </div>
+
+    <div class="card glass" style="padding: 0; overflow: hidden; margin-bottom: 3rem;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background: rgba(255,255,255,0.05); text-align: left;">
+                    <th style="padding: 1rem 1.5rem;">Order #</th>
+                    <th style="padding: 1rem 1.5rem;">Customer</th>
+                    <th style="padding: 1rem 1.5rem;">Total</th>
+                    <th style="padding: 1rem 1.5rem;">Status</th>
+                    <th style="padding: 1rem 1.5rem;">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders_list %}
+                <tr style="border-top: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 1.5rem; font-weight: 600;">#{{ order.id }}</td>
+                    <td style="padding: 1.5rem;">
+                        <div style="font-weight: 600;">{{ order.customer_name }}</div>
+                        <div style="font-size: 0.8rem; opacity: 0.6;">{{ order.customer_phone }}</div>
+                    </td>
+                    <td style="padding: 1.5rem; font-weight: 600;">₹{{ order.total_amount }}</td>
+                    <td style="padding: 1.5rem;">
+                        <form method="post" style="display: flex; gap: 0.5rem; align-items: center;">
+                            {% csrf_token %}
+                            <input type="hidden" name="order_id" value="{{ order.id }}">
+                            <input type="hidden" name="action" value="update_status">
+                            <select name="status" onchange="this.form.submit()" style="padding: 0.4rem; font-size: 0.75rem; border-radius: 6px; background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1);">
+                                {% for code, name in order.STATUS_CHOICES %}
+                                <option value="{{ code }}" {% if order.status == code %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </td>
+                    <td style="padding: 1.5rem; font-size: 0.85rem; opacity: 0.7;">{{ order.created_at|date:"M d, Y" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="padding: 3rem; text-align: center; color: var(--text-muted);">
+                        No orders placed yet.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}

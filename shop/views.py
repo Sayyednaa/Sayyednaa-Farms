@@ -81,7 +81,9 @@ class CartView(TemplateView):
         context['total'] = total
         return context
 
-class CheckoutView(View):
+class CheckoutView(LoginRequiredMixin, View):
+    login_url = 'core:login'
+    
     def get(self, request):
         return render(request, 'shop/checkout.html')
 
